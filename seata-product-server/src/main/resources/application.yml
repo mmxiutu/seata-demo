@@ -1,0 +1,74 @@
+
+spring:
+  profiles:
+    active: druid
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.5.210:3306/seata_demo?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    username: nicolas
+    password: 55ymd.COM
+  cloud:
+    nacos:
+      server-addr: 192.168.5.210:8848
+      username: nacos
+      password: nacos
+#      config:
+#        serverAddr: 192.168.5.210:8848
+#      discovery:
+#        serverAddr: 192.168.5.210:8848
+
+
+# MyBatis plus
+mybatis-plus:    
+    # 搜索指定包别名
+    typeAliasesPackage: com.platform.product.domain
+    # 配置mapper的扫描，找到所有的mapper.xml映射文件
+    mapperLocations: classpath*:mapper/*Mapper.xml
+    # 加载全局的配置文件
+    configLocation: classpath:mybatis/mybatis-config.xml
+
+# PageHelper分页插件
+pagehelper: 
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql 
+  
+# seata配置
+seata:
+  enabled: true
+  # Seata 应用编号，默认为 ${spring.application.name}
+  application-id: product-seata
+  # Seata 事务组编号，用于 TC 集群名
+  tx-service-group: default-tx-group
+  # 关闭自动代理
+  enable-auto-data-source-proxy: false
+  enableAutoDataSourceProxy: true
+  # 服务配置项
+  service:
+    # 虚拟组和分组的映射
+    vgroup-mapping:
+      default-tx-group: default
+    vgroupMapping:
+      default-tx-group: default
+    # 分组和 Seata 服务的映射
+    grouplist:
+      default: 192.168.5.210:8091
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      server-addr: 192.168.5.210:8848
+      username: nacos
+      password: nacos
+      cluster: default
+      group: SEATA_GROUP
+  config:
+    type: nacos
+    nacos:
+      data-id: seataServer.properties
+      server-addr: 192.168.5.210:8848
+      group: SEATA_GROUP
+      username: nacos
+      password: nacos
+       
