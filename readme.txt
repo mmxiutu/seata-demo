@@ -1,6 +1,8 @@
-1. 项目依赖nacos,mysql,seata 1.4.2;
+初始化数据库脚本
+``` 
+DROP DATABASE IF EXISTS seata_demo;
+CREATE DATABASE seata_demo charset = utf8mb4;
 
-2. 数据库脚本
 CREATE TABLE p_order
 (
     id               INT(11) NOT NULL AUTO_INCREMENT,
@@ -28,9 +30,7 @@ CREATE TABLE product
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8;
 
-
 INSERT INTO product (id, price, stock) VALUES (1, 10, 20);
-
 
 CREATE TABLE account
 (
@@ -59,8 +59,10 @@ CREATE TABLE undo_log
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = utf8;
+```
 
-3. Success test.
+使用PostMan进行测试
+1. 成功下单
 Post: http://localhost:9202/order/placeOrder
 Content-Type/application/json
 {
@@ -69,7 +71,7 @@ Content-Type/application/json
     "amount": 1
 }
 
-4. Fail Test库存不足
+2. 失败下单库存不足
 Post: http://localhost:9202/order/placeOrder
 Content-Type/application/json
 {
@@ -78,7 +80,7 @@ Content-Type/application/json
     "amount": 22
 }
 
-5. Fail Test用户余额不足
+3. 失败下单余额不足
 Post: http://localhost:9202/order/placeOrder
 Content-Type/application/json
 {
