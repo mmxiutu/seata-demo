@@ -63,6 +63,7 @@ CREATE TABLE undo_log
 
 使用PostMan进行测试
 1. 成功下单
+```
 Post: http://localhost:9202/order/placeOrder
 Content-Type/application/json
 {
@@ -70,8 +71,9 @@ Content-Type/application/json
     "productId": 1,
     "amount": 1
 }
-
+```
 2. 失败下单库存不足
+```
 Post: http://localhost:9202/order/placeOrder
 Content-Type/application/json
 {
@@ -79,8 +81,9 @@ Content-Type/application/json
     "productId": 1,
     "amount": 22
 }
-
+```
 3. 失败下单余额不足
+```
 Post: http://localhost:9202/order/placeOrder
 Content-Type/application/json
 {
@@ -88,3 +91,4 @@ Content-Type/application/json
     "productId": 1,
     "amount": 6
 }
+```
